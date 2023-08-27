@@ -1,25 +1,25 @@
 import React, { useState } from "react";
-import { View, Button, Alert, TextInput, Image } from "react-native";
-
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text } from "react-native";
+import { View, Text, TextInput, Button, Alert, FlatList, StyleSheet } from "react-native";
 
 export default function Laskin() {
   const [num1, setNumber1] = useState("");
   const [num2, setNumber2] = useState("");
   const [result, setResult] = useState('');
+  const [data, setData] = useState([]);
 
   const handleAddition = () => {
     const sum = Number(num1) + Number(num2);
+    const operation = `${num1} + ${num2} = ${sum}`;
     setResult(`(Sum:) ${sum}`);
+    setData([...data, { key: operation }]);
   };
 
   const handleSubtraction = () => {
     const difference = Number(num1) - Number(num2);
+    const operation = `${num1} - ${num2} = ${difference}`;
     setResult(`(Difference:) ${difference}`);
+    setData([...data, { key: operation }]);
   };
- 
- 
  
   const styles = StyleSheet.create({
     container: {
@@ -29,46 +29,59 @@ export default function Laskin() {
       justifyContent: "center",
     },
     inputContainer: {
-        flexDirection: "column",
-        marginBottom: 10,
-      },
-      input: {
-        width: 100,
-        borderColor: "gray",
-        borderWidth: 1,
-        marginRight: 10,
-      },
-      buttonContainer: {
-        flexDirection: "row",
-      },
-
-});
+      flexDirection: "column",
+      marginBottom: 10,
+    },
+    input: {
+      width: 200,
+      borderColor: "gray",
+      borderWidth: 1,
+      marginBottom: 10,
+    },
+    buttonContainer: {
+      flexDirection: "row",
+      marginBottom: 10,
+    },
+    list: {
+      marginTop: 20,
+    },
+    listItem: {
+      padding: 10,
+      fontSize: 18,
+      height: 44,
+    },
+  });
 
   return (
     <View style={styles.container}>
-      
       <Text>Result: {result}</Text>
       
       <View style={styles.inputContainer}>
-      <TextInput
-        style={{ width: 200, borderColor: "gray", borderWidth: 1 }}
-        onChangeText={(num1) => setNumber1(num1)}
-        value={num1}
-        keyboardType="numeric"
+        <TextInput
+          style={styles.input}
+          onChangeText={setNumber1}
+          value={num1}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={setNumber2}
+          value={num2}
+          keyboardType="numeric"
+        />
+      </View>
+      
+      <View style={styles.buttonContainer}>
+        <Button title="+" onPress={handleAddition} />
+        <Button title="-" onPress={handleSubtraction} />
+      </View>
+      
+      <Text style={styles.historyText}>History</Text>
+      <FlatList
+        style={styles.list}
+        data={data}
+        renderItem={({ item }) => <Text style={styles.listItem}>{item.key}</Text>}
       />
-
-<TextInput
-        style={{ width: 200, borderColor: "gray", borderWidth: 1 }}
-        onChangeText={(num2) => setNumber2(num2)}
-        value={num2}
-        keyboardType="numeric"
-      />
-    </View>
-    
-    <View style={styles.buttonContainer}></View>
-    <Button title="+" onPress={handleAddition} />
-    <Button title="-" onPress={handleSubtraction} />
-    
     </View>
   );
 }
