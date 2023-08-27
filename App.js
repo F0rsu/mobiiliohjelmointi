@@ -1,11 +1,15 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+
+import { StyleSheet } from "react-native";
 import Laskin from "./assets/Laskin";
+import React, { useState } from "react";
+import { View, Button, Alert, TextInput, Image } from "react-native";
+import Guessing from "./assets/Guessing";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Laskin />
+      <Guessing/>
     </View>
   );
 }
