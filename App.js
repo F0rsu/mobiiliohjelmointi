@@ -5,11 +5,12 @@ import React, { useState } from "react";
 import { View, Button, Alert, TextInput, Image } from "react-native";
 import Guessing from "./assets/Guessing";
 import { StatusBar } from "expo-status-bar";
+import ShoppingList from "./assets/ShoppingList";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Laskin/>
+      <ShoppingList/>
     </View>
   );
 }
