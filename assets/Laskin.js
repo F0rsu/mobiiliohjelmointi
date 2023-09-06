@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, Alert, FlatList, StyleSheet } from "react-native";
 
-export default function Laskin() {
+export default function Laskin({ navigation}) {
   const [num1, setNumber1] = useState("");
   const [num2, setNumber2] = useState("");
   const [result, setResult] = useState('');
@@ -74,14 +74,12 @@ export default function Laskin() {
       <View style={styles.buttonContainer}>
         <Button title="+" onPress={handleAddition} />
         <Button title="-" onPress={handleSubtraction} />
+        <Button title="History" onPress={() => navigation.navigate('History', {data})} />
       </View>
       
-      <Text style={styles.historyText}>History</Text>
-      <FlatList
-        style={styles.list}
-        data={data}
-        renderItem={({ item }) => <Text style={styles.listItem}>{item.key}</Text>}
-      />
+     
     </View>
   );
 }
+
+
